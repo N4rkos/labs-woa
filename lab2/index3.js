@@ -4,9 +4,9 @@ const util = require("util");
 
 const readFile = util.promisify(fs.readFile);
 
-const server = http.createServer(function (req, res) {
+const server = http.createServer((req, res) => {
   Promise.all([readFile("data.json"), readFile("template.html")])
-    .then(function (data) {
+    .then((data) => {
       const [jsonData, template] = data.map((buffer) => buffer.toString());
       const html = template.replace(
         "<li>%</li>",
@@ -16,9 +16,7 @@ const server = http.createServer(function (req, res) {
       );
       res.end(html);
     })
-    .catch(function (err) {
-      res.end(err.message);
-    });
+    .catch(({ message }) => res.end(message));
 });
 
 server.listen(5002);

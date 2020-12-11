@@ -1,10 +1,10 @@
 const http = require("http");
 const fs = require("fs");
 
-const server = http.createServer(function (req, res) {
-  fs.readFile("data.json", function (err, jsonData) {
+const server = http.createServer((req, res) => {
+  fs.readFile("data.json", (err, jsonData) => {
     if (err) res.end("Unable to fetch data");
-    fs.readFile("template.html", function (err, htmlData) {
+    fs.readFile("template.html", (err, htmlData) => {
       if (err) return res.end("Oups");
       const html = htmlData.toString().replace(
         "<li>%</li>",

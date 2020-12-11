@@ -4,11 +4,11 @@ const util = require("util");
 
 const readFile = util.promisify(fs.readFile);
 
-const server = http.createServer(function (req, res) {
+const server = http.createServer((req, res) => {
   readFile("data.json")
-    .then(function (jsonData) {
+    .then((jsonData) => {
       readFile("template.html")
-        .then(function (template) {
+        .then((template) => {
           const html = template.toString().replace(
             "<li>%</li>",
             JSON.parse(jsonData.toString())
@@ -17,13 +17,9 @@ const server = http.createServer(function (req, res) {
           );
           res.end(html);
         })
-        .catch(function (err) {
-          res.end(err.message);
-        });
+        .catch(({ message }) => res.end(message));
     })
-    .catch(function (err) {
-      res.end(err.message);
-    });
+    .catch(({ message }) => res.end(message));
 });
 
 server.listen(5002);
