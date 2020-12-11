@@ -2,7 +2,18 @@ const http = require("http");
 const fs = require("fs");
 const util = require("util");
 
-const readFile = util.promisify(fs.readFile);
+//const readFile = util.promisify(fs.readFile);
+// or
+const readFile = path => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, (err, data) => {
+      if (err) {
+        return reject(err)
+      }
+      return resolve(data)
+    })
+  })
+}
 
 const server = http.createServer((req, res) => {
   Promise.all([readFile("data.json"), readFile("template.html")])
