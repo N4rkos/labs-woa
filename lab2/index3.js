@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
       const html = template.replace(
         "<li>%</li>",
         JSON.parse(jsonData)
-          .map((title) => "<li>" + title + "</li>")
+          .map((title) => `<li>${title}</li>`)
           .join("\n")
       );
       res.end(html);

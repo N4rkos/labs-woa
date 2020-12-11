@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
       .toString()
       .replace(
         "<li>%</li>",
-        titles.map((title) => "<li>" + title + "</li>").join("\n")
+        titles.map((title) => `<li>${title}</li>`).join("\n")
       );
     return res.end(html);
   });

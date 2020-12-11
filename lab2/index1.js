@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
       const html = htmlData.toString().replace(
         "<li>%</li>",
         JSON.parse(jsonData.toString())
-          .map((title) => "<li>" + title + "</li>")
+          .map((title) => `<li>${title}</li>`)
           .join("\n")
       );
       return res.end(html);
